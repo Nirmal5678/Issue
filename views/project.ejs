@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Font awesome library -->
+        <script src="https://kit.fontawesome.com/f589ac33f3.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="https://www.w3schools.com/images/lamp.jpg" />
+
+        <!-- title -->
+        <title>THE ISSUE TRACKER</title>
+    
+    </head>
+    <body>
+
+        <!-- Header Container -->
+        <header>
+            <div class="bg-info collapse" id="navbarHeader" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-white">
+                                THE ISSUE TRACKER is a query tool for information related to projects and its issues. In this site we can define project information like author and description.
+                                And also issues and bugs related to that project. We can also filter/reterive project according to labels, title and description, author also.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-info bg-info shadow-sm">
+                <div class="container">
+                    <a href="/" class="navbar-brand text-white d-flex align-items-center">
+                        <i class="fa-solid fa-book-open"></i>&nbsp;
+                        <strong>THE ISSUE TRACKER</strong>
+                    </a> 
+                    <button class="navbar-toggler collapsed text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Project form container -->
+        <div id="project_form_container" class="container pt-3" style="width: 50%;">
+            <form action="/project/create" method="post" >
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="inputProject" class="my-0">Name :</label>
+                        <input id="inputProject" type="text" name="name" class="form-control" placeholder="Enter Project Name  ... ">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="inputAuthor" class="my-0">Author :</label>
+                        <input id="inputAuthor" type="text" name="author" class="form-control" placeholder="Enter Project Author  ... ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-10">
+                        <label for="inputDescription" class="my-0">Description :</label>
+                        <textarea name="description" class="form-control" placeholder="Enter Project Description  ... " id="inputDescription" rows="2"></textarea>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" class="btn btn-primary btn-lg mt-4">Submit</button>
+                    </div>
+                </div>  
+            </form>
+        </div>
+    
+    <!-- Custom Javascript -->
+    <script src="../javascript/viewProjectScript.js">
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Font awesome library -->
+        <script src="https://kit.fontawesome.com/f589ac33f3.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="https://www.w3schools.com/images/lamp.jpg" />
+
+        <!-- title -->
+        <title>THE ISSUE TRACKER</title>
+    
+    </head>
+    <body>
+
+        <!-- Header Container -->
+        <header>
+            <div class="bg-info collapse" id="navbarHeader" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-white">
+                                THE ISSUE TRACKER is a query tool for information related to projects and its issues. In this site we can define project information like author and description.
+                                And also issues and bugs related to that project. We can also filter/reterive project according to labels, title and description, author also.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-info bg-info shadow-sm">
+                <div class="container">
+                    <a href="/" class="navbar-brand text-white d-flex align-items-center">
+                        <i class="fa-solid fa-book-open"></i>&nbsp;
+                        <strong>THE ISSUE TRACKER</strong>
+                    </a> 
+
+                    <a href="/project/createProject"><button type="button" class="btn btn-secondary">Create project</button></a>
+                    <button class="navbar-toggler collapsed text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+  
+       
+       
+        <!-- Project Container -->
+        <div id="project_container" class="container mt-3">
+            <h2 class="text-center">Project List</h2>
+            <ul style="list-style:none;" id="poject_list">
+                <% if(project) { %>
+                    <% for (i of project ){ %>
+                        <li class="py-1 offset-sm-1">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <div class="card">
+                                        <h5 class="card-header"><%= i.name %></h5>
+                                        <div class="card-body">
+                                        <h5 class="card-title"><%= i.author %></h5>
+                                        <p class="card-text"><%= i.description %></p>
+                                        <!-- <a href="/issue/showIssue" class="btn btn-primary">View</a> -->
+                                       
+                                        <a href="/viewProject/?project=<%= i._id %>" class="btn btn-primary">View</a>
+           
+                                    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <% } %>
+                <% } else { %>
+                    <!-- If there is no projects -->
+                    <section class="text-center container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-8 mx-auto">
+                                <h1 class="fw-light">!!Oops, your project list is empty</h1>
+                                <p class="lead my-2">Don't panic :) :) just go and add something to your list</p>
+                            </div>
+                        </div>
+                    </section>
+                <% } %>
+                
+            </ul>
+        </div>
+    
+    <!-- Custom Javascript -->
+    <script src="../javascript/viewProjectScript.js">
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

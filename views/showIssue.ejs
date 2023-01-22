@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Font awesome library -->
+        <script src="https://kit.fontawesome.com/f589ac33f3.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="https://www.w3schools.com/images/lamp.jpg" />
+
+        <!-- title -->
+        <title>THE ISSUE TRACKER</title>
+
+    </head>
+    <body>
+
+        <!-- Header Container -->
+        <header>
+            <div class="bg-info collapse" id="navbarHeader" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="text-white">About</h4>
+                            <p class="text-white">
+                                THE ISSUE TRACKER is a query tool for information related to projects and its issues. In this site we can define project information like author and description.
+                                And also issues and bugs related to that project. We can also filter/reterive project according to labels, title and description, author also.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-info bg-info shadow-sm">
+                <div class="container">
+                    <a href="/" class="navbar-brand text-white d-flex align-items-center">
+                        <i class="fa-solid fa-book-open"></i>&nbsp;
+                        <strong>THE ISSUE TRACKER</strong>
+                    </a> 
+                    <button class="navbar-toggler collapsed text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filter Container -->
+        <div class="container pt-2">
+            <h5>Filter the Project</h5>
+            <form action="/viewProject" method="post" onsubmit="return check()">
+                <div class="row">
+                    <div class="col">
+                        <select name="selectLabels" id="inputLabel" multiple  class="form-select form-select-sm text-center">
+                            <option value=0>--  SELECT MULTIPLE LABELS  --</option>
+                            <% for(a of allLabels){ %>
+                                <option value='<%= a %>'><%= a %></option>
+                                <%= a %>
+                            <% } %>
+                        </select>      
+                    </div>
+                    <div class="col">
+                        <select name="selectAuthor" id="inputAuthor" class="form-select form-select-lg text-center" style="height: 100%;">
+                            <option value=0>    --  SELECT AUTHOR --</option>
+                            <% for(a of allAuthors){ %>
+                                <option value='<%= a %>'><%= a %></option>
+                                <%= a %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="selectTitle" id="inputTitle" class="form-select form-select-sm" style="height: 50%;">
+                            <option value=0>--  SELECT TITLE    --</option>
+                            <% for(a of allTitles){ %>
+                                <option value='<%= a %>'><%= a %></option>
+                            <% } %>
+                        </select>
+                        <select name="selectDescription" id="inputDescription" class="form-select form-select-sm"  style="height: 50%;">
+                            <option value=0>--  SELECT DESCRIPTION  --</option>
+                            <% for(a of allDescriptions){ %>
+                                <option value='<%= a %>'><%= a %></option>
+                                <%= a %>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Filter" id="btn_search" class="btn btn-primary my-2">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Current Project Container -->
+        <div id="current_project_container" class="container">
+            <!-- <hr> -->
+            <% if(curProject) { %>
+                <div class="card">
+                    <div class="card-header">
+                        Title : <%= curProject.name %>
+                    </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Author : <%= curProject.author %></h5>
+                            <p class="card-text"><%= curProject.description %></p>
+                                <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="toggleIssue" onclick="toggleIssueFn();">
+                                Click Here To Add Issues
+                                </button>
+                                </p>
+                                <div  id="collapseExample" class="collapse">
+                                    <div class="card card-body">
+                                        <form action="/createIssue" method="post">
+                                            <input type="hidden" name="projectID" value='<%= curProject.id %>' class="form-control">
+                                            <input type="text" name="title" placeholder="Enter Title Here ..." class="form-control">
+                                            <input type="text" name="labels" placeholder="Enter Labels Here (with comma) ..." class="form-control">
+                                            <input type="text" name="author" placeholder="Enter Author Here ..." class="form-control">
+                                            <textarea  name="description" placeholder="Enter Description Here ..." cols="80" class="form-control"></textarea>
+                                            <input type="submit" value="Add Issue" class="btn btn-danger mt-1" id="liveToastBtn">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div >
+                                    <h3 class="mt-3">Issue List</h3>
+                                    <% if(cur_project_issues) { %>
+                                        <%  for (i of cur_project_issues)  { %>
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                                  <div class="d-flex w-100">
+                                                    <h5 class="mb-1"><%= i.title %></h5>
+                                                  </div>
+                                                  <p class="mb-1"><%= i.description %>&nbsp;-: <%= i.author %></p>
+                                                    <small>
+                                                        <% if(i.labels) { %>
+                                                            <%  for (j of i.labels)  { %>
+                                                                <span class="badge bg-warning p-2"><%= j %></span>
+                                                            <% } %>
+                                                        <% } %>
+                                                    </small>
+                                                </a>
+                                            </div>
+                                        <% } %>
+                                    <% } %>
+                                </div>      
+                        </div>
+                    </div>
+            <% } %>     
+        </div>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+        <!-- Custom Javascript -->
+        <script src="../javascript/viewProjectScript.js">
+        </script>
+        
+    </body>
+</html>
